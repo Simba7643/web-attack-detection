@@ -113,4 +113,38 @@ try {
     $top_attackers = $stmt->fetchAll();
     
     // Get recent attacks (last 20)
-   
+    $stmt = $pdo->query("
+        SELECT 
+            id,
+            attacker_ip,
+            target_url,
+            attack_type,
+            confidence,
+            severity,
+            timestamp
+        FROM attacks 
+        ORDER BY timestamp DESC 
+        LIMIT 20
+    ");
+    $recent_attacks = $stmt->fetchAll();
+    
+    // Format the response
+    echo json_encode([
+        'success' => true,
+        'stats' => $stats,
+        'trends' => $trends,
+        'distribution' => $distribution,
+        'severity' => $severity,
+        'hourly' => $hourly,
+        'top_attackers' => $top_attackers,
+        'recent_attacks' => $recent_attacks
+    ]);
+    } catch (PDOException $e) {
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
+}
+?>
+
+
