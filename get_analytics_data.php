@@ -156,4 +156,22 @@ try {
     }
     $monthlySummary .= '</tbody></table>';
     
-   
+    echo json_encode([
+        'success' => true,
+        'trends' => $trendsData,
+        'distribution' => $distribution,
+        'severity' => $severity,
+        'hourly' => $hourly,
+        'weekly' => $weekly,
+        'topSources' => $topSources,
+        'attackTypes' => $attackTypes,
+        'monthlySummary' => $monthlySummary
+    ]);
+    
+} catch(PDOException $e) {
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
+}
+?>
