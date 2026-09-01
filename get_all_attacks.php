@@ -18,18 +18,5 @@ try {
         FROM attacks 
         ORDER BY timestamp DESC 
         LIMIT 500
-    ");
-    $attacks = $stmt->fetchAll();
-    
-    echo json_encode([
-        'success' => true,
-        'attacks' => $attacks
-    ]);
-    
-} catch (PDOException $e) {
-    echo json_encode([
-        'success' => false,
-        'error' => $e->getMessage()
-    ]);
-}
+   
 ?>
