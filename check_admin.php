@@ -32,3 +32,25 @@ if (count($admins) > 0) {
                 echo "<span style='color:green'>Password is: <strong>$test_pw</strong></span>";
                 break;
          
+   }
+        }
+        echo "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "<p>No admin users found. Creating default admin...</p>";
+    
+    // Create default admin
+    $default_password = 'admin123';
+    $hash = password_hash($default_password, PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'admin')");
+    $stmt->execute(['admin', $hash]);
+    
+    echo "<p style='color:green'>✓ Admin user created!</p>";
+    echo "<p>Username: <strong>admin</strong></p>";
+    echo "<p>Password: <strong>$default_password</strong></p>";
+}
+
+echo "<br><a href='login.php'>Go to Login →</a>";
+?>
