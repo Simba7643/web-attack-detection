@@ -339,4 +339,33 @@ if (isset($_SESSION['failed_attempts']) && !isset($_SESSION['login_blocked_until
             }
         }
         
+        // Start timer if blocked
+        if (waitTime > 0) {
+            startTimer();
+        }
         
+        // Prevent multiple rapid submissions
+        let submitted = false;
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            if (submitted) {
+                e.preventDefault();
+                return false;
+            }
+            submitted = true;
+            const btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Verifying...';
+            
+            // Re-enable after 5 seconds if something went wrong
+            setTimeout(function() {
+                if (btn.disabled && btn.textContent !== 'Login') {
+                    btn.disabled = false;
+                    btn.textContent = 'Login';
+                    submitted = false;
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
+
