@@ -86,25 +86,4 @@ try {
             $day_of_week = date('w', strtotime($day['attack_date']));
             $peak_day = $day_names[$day_of_week];
         }
-    }
-    
-    $avg_daily = round($total_attacks / count($daily_attacks));
-    
-    echo json_encode([
-        'success' => true,
-        'stats' => [
-            'avgDaily' => $avg_daily,
-            'total' => $total_attacks,
-            'peakDay' => $peak_day ?: 'No data',
-            'daysWithData' => count($daily_attacks)
-        ],
-        'daily_data' => $daily_attacks
-    ]);
-    
-} catch(PDOException $e) {
-    echo json_encode([
-        'success' => false, 
-        'error' => $e->getMessage()
-    ]);
-}
-?>
+   
