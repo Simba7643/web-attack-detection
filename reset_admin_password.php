@@ -764,4 +764,27 @@ function generateTempPassword(userId, username) {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: 'user_id=' + userId + '&csrf_token=<?php echo $csrf_token; ?>'
-   
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`✅ TEMPORARY PASSWORD GENERATED\n\nUser: ${data.username}\nPassword: ${data.temp_password}\n\n⚠️ IMPORTANT:\n• This password REPLACED their old password in the database\n• Give this password to the admin\n• They MUST change it after login`);
+            
+            // Copy to clipboard
+            if (confirm('Copy password to clipboard?')) {
+                navigator.clipboard.writeText(data.temp_password);
+                alert('Password copied to clipboard!');
+            }
+        } else {
+            alert('❌ Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('❌ Network error: ' + error);
+    });
+}
+</script>
+
+</body>
+</html>
+
