@@ -80,5 +80,31 @@
             }
             
             document.getElementById('result').innerHTML = 'Sending...';
-            
+            try {
+                const response = await fetch('send_sms_api.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        api_key: apiKey,
+                        username: username,
+                        to: to,
+                        message: message
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('result').innerHTML = `<div class="success">✅ SMS Sent Successfully! Check your phone.</div>`;
+                } else {
+                    document.getElementById('result').innerHTML = `<div class="error">❌ Failed: ${data.error}</div>`;
+                }
+            } catch(e) {
+                document.getElementById('result').innerHTML = `<div class="error">Error: ${e.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
+
             
