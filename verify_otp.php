@@ -497,4 +497,23 @@ function hideEmail($email) {
                 verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
                 verifyBtn.disabled = true;
                 document.getElementById('otpForm').submit();
+
+                      }
+        });
+        
+        // Allow only numbers
+        otpInput.addEventListener('keypress', function(e) {
+            if (e.key < '0' || e.key > '9') {
+                e.preventDefault();
+            }
+        });
+        
+        // Resend click handler
+        resendLink.addEventListener('click', function(e) {
+            resendLink.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            resendLink.style.pointerEvents = 'none';
+        });
+    </script>
+</body>
+</html>
       
