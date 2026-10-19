@@ -8,10 +8,7 @@ if (!isset($_POST['username'])) {
     session_start();
 }
 
-// If already fully verified, go to dashboard
-if (isset($_SESSION['user_id']) && isset($_SESSION['admin_verified']) && $_SESSION['admin_verified'] === true) {
-    header('Location: dashboard.php');
-    exit();
+
 }
 
 $error = '';
