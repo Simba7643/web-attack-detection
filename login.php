@@ -7,7 +7,7 @@ if (!isset($_POST['username'])) {
     session_destroy();
     session_start();
 }
-
+// missing line 
 
 }
 
